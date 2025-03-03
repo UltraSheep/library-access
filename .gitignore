@@ -1,3 +1,4 @@
-.env
+*/.env
 /actual-requests
 *.jpeg
+*/node_modules

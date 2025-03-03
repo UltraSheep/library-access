@@ -19,6 +19,6 @@ qr_response=session.get(url=qr_url)
 
 session.close()
 
-with open(f"qr_code.jpeg", "wb") as f:
+with open("py/qr_code.jpeg", "wb") as f:
     f.write(qr_response.content)
 

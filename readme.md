@@ -1,3 +1,3 @@
-Random thing I wrote to auto fetch ur NTNU library "E-Card"
+Random thing I wrote to auto fetch ur NTNU library "E-Card" now in python and javascript
 1. Put ur library system credentials in .env (in plaintext, cringe indeed)
 2. Profit
