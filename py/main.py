@@ -1,4 +1,5 @@
 import requests
+import os
 from dotenv import dotenv_values
 
 env = dotenv_values()
@@ -19,6 +20,10 @@ qr_response=session.get(url=qr_url)
 
 session.close()
 
-with open("py/qr_code.jpeg", "wb") as f:
+script_dir = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(script_dir, "qr_code.jpeg")
+
+with open(file_path, "wb") as f:
     f.write(qr_response.content)
 
+print("QR code saved to qr_code.jpeg")
