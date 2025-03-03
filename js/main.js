@@ -26,7 +26,7 @@ async function getQRCode() {
 		);
 		jsessionid = parseJSessionId(cookieResponse.headers["set-cookie"]);
 
-		const loginResponse = await session.post(
+		await session.post(
 			"https://www.lib.ntnu.edu.tw/profile/authenticate.jsp",
 			{
 				userName: userName,
@@ -35,18 +35,28 @@ async function getQRCode() {
 			{
 				headers: {
 					Cookie: `JSESSIONID=${jsessionid}`
-				}
+				},
+				transformRequest: [
+					function(data) {
+						let ret = "";
+						for (let it in data) {
+							ret +=
+								encodeURIComponent(it) +
+								"=" +
+								encodeURIComponent(data[it]) +
+								"&";
+						}
+						return ret.slice(0, -1);
+					}
+				]
 			}
 		);
 
-		const vidResponse = await session.get(
-			"https://www.lib.ntnu.edu.tw/profile/virtualID.jsp",
-			{
-				headers: {
-					Cookie: `JSESSIONID=${jsessionid}`
-				}
+		await session.get("https://www.lib.ntnu.edu.tw/profile/virtualID.jsp", {
+			headers: {
+				Cookie: `JSESSIONID=${jsessionid}`
 			}
-		);
+		});
 
 		const qrResponse = await session.get(
 			"https://www.lib.ntnu.edu.tw/profile/qrcode.jsp",
